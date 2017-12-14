@@ -1,0 +1,1 @@
+# gridseed-mining
