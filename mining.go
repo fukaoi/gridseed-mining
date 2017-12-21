@@ -6,9 +6,12 @@ import (
 )
 
 func main() {
-	out, err := exec.Command("ls", "-la").Output()
+	//comdstr := "lsusb | grep \"STM\" | cut -c5-7,15-18"
+	comdstr := "lsusb | grep \"ID\" | cut -c5-7,15-18"
+	out, err := exec.Command("sh", "-c", comdstr).Output()
+	//out2, _ := exec.Command("ls", "-la").Output()
 	if err == nil {
-		fmt.Print(out)
+		fmt.Print("%s", out)
 	}
 }
 
