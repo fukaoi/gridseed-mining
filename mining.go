@@ -9,9 +9,11 @@ func main() {
 	//comdstr := "lsusb | grep \"STM\" | cut -c5-7,15-18"
 	comdstr := "lsusb | grep \"ID\" | cut -c5-7,15-18"
 	out, err := exec.Command("sh", "-c", comdstr).Output()
+
 	//out2, _ := exec.Command("ls", "-la").Output()
 	if err == nil {
-		fmt.Print("%s", out)
+		s := fmt.Sprintf("%s", out)
+		fmt.Println(s)
 	}
 }
 
