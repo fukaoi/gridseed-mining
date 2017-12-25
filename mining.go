@@ -9,19 +9,29 @@ import (
 )
 
 func main() {
+	count := getUsbDeviceCount()
+	usb := getUsbDevice(count)
+	fmt.Println(usb)
+}
+
+func getUsbDevice(count int) (result []string) {
 	comdstr := "lsusb | grep \"ID\" | cut -c5-7,15-18"
-	usbCount := "lsusb | grep ID | wc -l"
-
 	out, err := exec.Command("sh", "-c", comdstr).Output()
-	countOut, errOut := exec.Command("sh", "-c", usbCount).Output()
-
-	if err != nil || errOut != nil {
-		fmt.Println(err, errOut)
+	if err != nil {
+		fmt.Println(err)
 		os.Exit(1)
 	}
-
-	count, _ := strconv.Atoi(string(countOut[0]))
 	re := regexp.MustCompile("[0-9]{3}\\s[0-9]{3}\\n")
-	var result []string = re.FindAllString(string(out), count)
-	fmt.Println(result[0])
+	return re.FindAllString(string(out), count)
+}
+
+func getUsbDeviceCount() (count int) {
+	usbCount := "lsusb | grep ID | wc -l"
+	out, err := exec.Command("sh", "-c", usbCount).Output()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	result, _ := strconv.Atoi(string(out[0]))
+	return result
 }
