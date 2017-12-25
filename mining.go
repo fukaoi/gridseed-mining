@@ -12,6 +12,9 @@ func main() {
 	count := getUsbDeviceCount()
 	usb := getUsbDevice(count)
 	fmt.Println(usb)
+	for i := 0; i < count; i++ {
+		fmt.Println(usb[i])
+	}
 }
 
 func getUsbDevice(count int) (result []string) {
@@ -21,7 +24,7 @@ func getUsbDevice(count int) (result []string) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	re := regexp.MustCompile("[0-9]{3}\\s[0-9]{3}\\n")
+	re := regexp.MustCompile("[0-9]{3}\\s[0-9]{3}")
 	return re.FindAllString(string(out), count)
 }
 
