@@ -21,7 +21,7 @@ func main() {
 	count := getUsbDeviceCount()
 	devices := getUsbDevice(count)
 	cmdStr := createMiningCmd(devices)
-	_, err := exec.Command(cmdStr).Output()
+	_, err := exec.Command("sh", "-c", cmdStr).Output()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
