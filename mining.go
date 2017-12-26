@@ -29,7 +29,7 @@ func main() {
 }
 
 func getUsbDevice(count int) (result []string) {
-	comdstr := "lsusb | grep \"ID\" | cut -c5-7,15-18"
+	comdstr := "lsusb | grep \"STM\" | cut -c5-7,15-18"
 	out, err := exec.Command("sh", "-c", comdstr).Output()
 	if err != nil {
 		fmt.Println(err)
@@ -40,7 +40,7 @@ func getUsbDevice(count int) (result []string) {
 }
 
 func getUsbDeviceCount() (count int) {
-	usbCount := "lsusb | grep ID | wc -l"
+	usbCount := "lsusb | grep STM | wc -l"
 	out, err := exec.Command("sh", "-c", usbCount).Output()
 	if err != nil {
 		fmt.Println(err)
