@@ -1,6 +1,4 @@
 NAME     := mining
-VERSION  := v0.1
-REVISION := $(shell git rev-parse --short HEAD)
 
 .PHONY: build
 build:
