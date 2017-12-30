@@ -1,8 +1,6 @@
 [CGMINER]
-alog     = "scrypt"
-version  = "v1"
-endpoint = "api.example.com"
-debug    = true
+algo     = "scrypt"
+option   = ""
 
 [POOL]
 host1 = ""
