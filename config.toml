@@ -1,0 +1,12 @@
+[CGMINER]
+alog     = "scrypt"
+version  = "v1"
+endpoint = "api.example.com"
+debug    = true
+
+[POOL]
+host1 = ""
+host2 = ""
+user  = ""
+password = ""
+workerName = ""
