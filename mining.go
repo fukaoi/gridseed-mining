@@ -10,7 +10,7 @@ import (
 
 const (
 	CGMINER = "cgminer --gridseed-options=baud=115200,freq=800,chips=40,modules=1,usefifo=0,btc=0 --scrypt "
-	POOL = "--url=stratum+tcp://us2.litecoinpool.org:3333 --userpass=yarichin.1:1 --url=stratum+tcp://us.litecoinpool.org:3333 --userpass=yarichin.1:1 "
+	POOL = "--url=stratum+tcp://us2.litecoinpool.org:3333 --userpass=git ssttt .1:1 --url=stratum+tcp://us.litecoinpool.org:3333 --userpass=yarichin.1:1 "
 )
 
 const (

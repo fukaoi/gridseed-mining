@@ -1,10 +1,10 @@
 [CGMINER]
 algo     = "scrypt"
-option   = ""
+option   = "--gridseed-options=baud=115200,freq=800,chips=40,modules=1,usefifo=0,btc=0"
 
 [POOL]
-host1 = ""
-host2 = ""
-user  = ""
-password = ""
-workerName = ""
+host1 = "us.litecoinpool.org:3333"
+host2 = "us2.litecoinpool.org:3333"
+user  = "yarichin"
+password = "1"
+workerName = "1"
