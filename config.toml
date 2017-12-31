@@ -1,10 +1,6 @@
-[CGMINER]
-algo     = "scrypt"
-option   = "--gridseed-options=baud=115200,freq=800,chips=40,modules=1,usefifo=0,btc=0"
-
 [POOL]
-host1 = "us.litecoinpool.org:3333"
-host2 = "us2.litecoinpool.org:3333"
-user  = "yarichin"
-password = "1"
-workerName = "1"
+algo   = " --scrypt"
+option = " --gridseed-options=baud=115200,freq=800,chips=40,modules=1,usefifo=0,btc=0"
+host1 = " --url=stratum+tcp://us.litecoinpool.org:3333"
+host2 = " --url=stratum+tcp://us2.litecoinpool.org:3333"
+userPassWorker  = " --userpass=yarichin.1:1 "

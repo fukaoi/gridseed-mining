@@ -17,4 +17,4 @@
 .idea
 vendor
 cmd/*
-*.iml
+gridseed-mining.iml

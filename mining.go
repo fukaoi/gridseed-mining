@@ -1,19 +1,16 @@
 package main
 
 import (
-	"os/exec"
 	"fmt"
-	"regexp"
+	"github.com/BurntSushi/toml"
 	"os"
+	"os/exec"
+	"regexp"
 	"strconv"
 )
 
 const (
-	CGMINER = "cgminer --gridseed-options=baud=115200,freq=800,chips=40,modules=1,usefifo=0,btc=0 --scrypt "
-	POOL = "--url=stratum+tcp://us2.litecoinpool.org:3333 --userpass=git ssttt .1:1 --url=stratum+tcp://us.litecoinpool.org:3333 --userpass=yarichin.1:1 "
-)
-
-const (
+	MINER     = "cgminer"
 	DELIMITER = ","
 )
 
@@ -21,11 +18,12 @@ func main() {
 	count := getUsbDeviceCount()
 	devices := getUsbDevice(count)
 	cmdStr := createMiningCmd(devices)
-	_, err := exec.Command("sh", "-c", cmdStr).Output()
+	out, err := exec.Command("sh", "-c", cmdStr).Output()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+	fmt.Println(out)
 }
 
 func getUsbDevice(count int) (result []string) {
@@ -50,15 +48,36 @@ func getUsbDeviceCount() (count int) {
 	return result
 }
 
-func createMiningCmd(devices []string) (cmd string){
+func createMiningCmd(devices []string) (cmd string) {
 	concatStr := "--usb="
 	for i := 0; i < len(devices); i++ {
 		split := regexp.MustCompile("\\s").ReplaceAllString(devices[i], ":")
 		concatStr += split
-		if len(devices) - 1 > i {
+		if len(devices)-1 > i {
 			concatStr += DELIMITER
 		}
 	}
 
-	return CGMINER + POOL + concatStr
+	return MINER + getMinerInfo() + getPoolInfo() + concatStr
+}
+
+func getMinerInfo() (info string) {
+	c := configure()
+	return MINER + c.Algo + c.Option
+}
+
+func getPoolInfo() (info string) {
+	c := configure()
+	return c.Host1 + c.Host2 + c.UserPassWorker
+}
+
+func configure() (pool pool) {
+	var tomlConfig tomlConfig
+
+	_, err := toml.DecodeFile("config.toml", &tomlConfig)
+	if err != nil {
+		fmt.Println("config.toml error: ", err)
+		os.Exit(9)
+	}
+	return tomlConfig.Pool
 }
