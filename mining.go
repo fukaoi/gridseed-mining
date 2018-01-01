@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 const (
@@ -27,6 +28,7 @@ func main() {
 	}
 	count := getUsbDeviceCount()
 	devices := getUsbDevice(count)
+	l.Info("devices: " + strings.Join(devices, ", "))
 	cmdStr := createMiningCmd(devices)
 	out, err := exec.Command("sh", "-c", cmdStr).Output()
 	if err != nil {
