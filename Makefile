@@ -6,7 +6,7 @@ ifeq ($(shell command -v glide 2> /dev/null),)
 	curl https://glide.sh/get | sh
 endif
 	glide install
-	go build -o cmd/$(NAME) mining.go
+	go build -o cmd/$(NAME) ./
 
 .PHONY: clean
 clean:
