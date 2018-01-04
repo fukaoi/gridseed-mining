@@ -8,6 +8,10 @@ endif
 	glide install
 	go build -o cmd/$(NAME) ./
 
+.PHONY: run
+run:
+	./cmd/$(NAME)
+
 .PHONY: clean
 clean:
 	rm -rf cmd/*
