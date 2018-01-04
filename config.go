@@ -10,4 +10,6 @@ type pool struct {
 	Host1 string
 	Host2 string
 	UserPassWorker string
+	usbDevice string
+	usbDeviceCount string
 }

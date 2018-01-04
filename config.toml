@@ -4,3 +4,8 @@ option = " --gridseed-options=baud=115200,freq=800,chips=40,modules=1,usefifo=0,
 host1 = " --url=stratum+tcp://us.litecoinpool.org:3333"
 host2 = " --url=stratum+tcp://us2.litecoinpool.org:3333"
 userPassWorker  = " --userpass=yarichin.1:1 "
+usbDevice = "lsusb | grep ID | cut -c5-7,15-18"
+usbDeviceCount = "lsusb | grep ID | wc -l"
+
+#3 usbDevice debug
+#production STM, development ID

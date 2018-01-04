@@ -14,7 +14,8 @@ import (
 const (
 	MINER     = "cgminer"
 	DELIMITER = ","
-	LOGFILE = "./output.log"
+	LOGFILE   = "./output.log"
+	USBSTR    = "--usb="
 )
 
 var (
@@ -57,9 +58,7 @@ func logSetting() (*os.File, error) {
 }
 
 func getUsbDevice(count int) (result []string) {
-	//comdstr := "lsusb | grep STM | cut -c5-7,15-18"
-	comdstr := "lsusb | grep ID | cut -c5-7,15-18"
-	out, err := exec.Command("sh", "-c", comdstr).Output()
+	out, err := exec.Command("sh", "-c", configure().usbDevice).Output()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -69,9 +68,7 @@ func getUsbDevice(count int) (result []string) {
 }
 
 func getUsbDeviceCount() (count int) {
-	//usbCount := "lsusb | grep STM | wc -l"
-	usbCount := "lsusb | grep ID | wc -l"
-	out, err := exec.Command("sh", "-c", usbCount).Output()
+	out, err := exec.Command("sh", "-c", configure().usbDeviceCount).Output()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -81,7 +78,7 @@ func getUsbDeviceCount() (count int) {
 }
 
 func createMiningCmd(devices []string) (cmd string) {
-	concatStr := "--usb="
+	concatStr := USBSTR
 	for i := 0; i < len(devices); i++ {
 		split := regexp.MustCompile("\\s").ReplaceAllString(devices[i], ":")
 		concatStr += split
@@ -89,8 +86,9 @@ func createMiningCmd(devices []string) (cmd string) {
 			concatStr += DELIMITER
 		}
 	}
-
-	return MINER + getMinerInfo() + getPoolInfo() + concatStr
+	cmd = MINER + getMinerInfo() + getPoolInfo() + concatStr
+	l.Info("cmd: " + cmd)
+	return cmd
 }
 
 func getMinerInfo() (info string) {
