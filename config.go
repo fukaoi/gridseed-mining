@@ -7,8 +7,7 @@ type tomlConfig struct {
 type pool struct {
 	Algo     string
 	Option 	 string
-	Host1 string
-	Host2 string
+	Host string
 	UserPassWorker string
 	UsbDevice string
 	UsbDeviceCount string

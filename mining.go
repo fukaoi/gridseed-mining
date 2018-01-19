@@ -70,7 +70,7 @@ func getMinerInfo() (info string) {
 
 func getPoolInfo() (info string) {
 	c := configure()
-	return c.Host1 + c.Host2 + c.UserPassWorker
+	return c.Host + c.UserPassWorker
 }
 
 func configure() (pool pool) {
