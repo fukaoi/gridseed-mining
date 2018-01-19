@@ -58,7 +58,7 @@ func logSetting() (*os.File, error) {
 }
 
 func getUsbDevice(count int) (result []string) {
-	out, err := exec.Command("sh", "-c", configure().usbDevice).Output()
+	out, err := exec.Command("sh", "-c", configure().UsbDevice).Output()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -68,7 +68,7 @@ func getUsbDevice(count int) (result []string) {
 }
 
 func getUsbDeviceCount() (count int) {
-	out, err := exec.Command("sh", "-c", configure().usbDeviceCount).Output()
+	out, err := exec.Command("sh", "-c", configure().UsbDeviceCount).Output()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
