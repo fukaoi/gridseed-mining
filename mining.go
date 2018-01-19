@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/BurntSushi/toml"
-	l "github.com/sirupsen/logrus"
 	"os"
 	"os/exec"
 	"regexp"
@@ -18,18 +17,10 @@ const (
 	USBSTR    = "--usb="
 )
 
-var (
-	log = l.New()
-)
-
 func main() {
-	log, err := logSetting()
-	if err != nil {
-		l.Error(err)
-	}
 	count := getUsbDeviceCount()
 	devices := getUsbDevice(count)
-	l.Info("devices: " + strings.Join(devices, ", "))
+	fmt.Println("devices: " + strings.Join(devices, ", "))
 	cmdStr := createMiningCmd(devices)
 	out, err := exec.Command("sh", "-c", cmdStr).Output()
 	if err != nil {
@@ -37,24 +28,6 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println(out)
-	l.Info(out)
-
-	defer log.Close()
-}
-
-func logSetting() (*os.File, error) {
-	log.Formatter = new(l.TextFormatter)
-	log.Level = l.InfoLevel
-	if err := os.Remove(LOGFILE); err != nil {
-		l.Error(err)
-	}
-
-	logfile, err := os.OpenFile(LOGFILE, os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		log.Info(err)
-	}
-
-	return logfile, err
 }
 
 func getUsbDevice(count int) (result []string) {
@@ -87,7 +60,6 @@ func createMiningCmd(devices []string) (cmd string) {
 		}
 	}
 	cmd = MINER + getMinerInfo() + getPoolInfo() + concatStr
-	l.Info("cmd: " + cmd)
 	return cmd
 }
 
