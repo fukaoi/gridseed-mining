@@ -11,10 +11,9 @@ import (
 )
 
 const (
-	MINER     = "cgminer"
-	DELIMITER = ","
-	LOGFILE   = "./output.log"
-	USBSTR    = "--usb="
+	MINER            = "cgminer"
+	DELIMITER        = ","
+	USBSTR           = "--usb="
 )
 
 func main() {
