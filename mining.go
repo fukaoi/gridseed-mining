@@ -21,6 +21,7 @@ func main() {
 	devices := getUsbDevice(count)
 	fmt.Println("devices: " + strings.Join(devices, ", "))
 	cmdStr := createMiningCmd(devices)
+	fmt.Println(cmdStr)
 	out, err := exec.Command("sh", "-c", cmdStr).Output()
 	if err != nil {
 		fmt.Println(err)
@@ -58,7 +59,7 @@ func createMiningCmd(devices []string) (cmd string) {
 			concatStr += DELIMITER
 		}
 	}
-	cmd = MINER + getMinerInfo() + getPoolInfo() + concatStr
+	cmd = getMinerInfo() + getPoolInfo() + concatStr
 	return cmd
 }
 
